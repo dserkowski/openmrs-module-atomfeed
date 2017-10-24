@@ -64,6 +64,16 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.ict4h</groupId>
+				<artifactId>atomfeed-server</artifactId>
+				<version>${atomfeedServerVersion}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<!-- Set Java version -->
@@ -186,5 +196,6 @@
         <pmdPluginVersion>3.8</pmdPluginVersion>
         <checkstylePluginVersion>2.17</checkstylePluginVersion>
 		<findbugsPluginVersion>3.0.2</findbugsPluginVersion>
-    </properties>
+    	<atomfeedServerVersion>1.9.4</atomfeedServerVersion>
+	</properties>
 </project>
