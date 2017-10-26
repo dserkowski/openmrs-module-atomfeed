@@ -75,7 +75,6 @@
 				<groupId>org.ict4h.openmrs</groupId>
 				<artifactId>openmrs-atomfeed-common</artifactId>
 				<version>${openmrsAtomfeedVersion}</version>
-				<type>jar</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -203,6 +202,6 @@
 		<checkstylePluginVersion>2.17</checkstylePluginVersion>
 		<findbugsPluginVersion>3.0.2</findbugsPluginVersion>
 		<atomfeedVersion>1.9.4</atomfeedVersion>
-		<openmrsAtomfeedVersion>2.5.4</openmrsAtomfeedVersion>
+		<openmrsAtomfeedVersion>2.5.5-SNAPSHOT</openmrsAtomfeedVersion>
 	</properties>
 </project>
