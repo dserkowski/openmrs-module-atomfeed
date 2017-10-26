@@ -88,4 +88,27 @@ public class AtomfeedUtilsTest {
 		String json = AtomfeedUtils.readResourceFile(incorrectFeedConfigurationPath);
 		Assert.assertFalse(AtomfeedUtils.isValidateJson(json));
 	}
+	
+	@Test
+	public void writeFeedConfigurationToJsonFile() throws AtomfeedException {
+		List<FeedConfiguration> list = AtomfeedUtils.parseJsonFileToFeedConfiguration(sampleFeedConfigurationPath);
+		
+		final String path = "newFile.txt";
+		AtomfeedUtils.writeFeedConfigurationToJsonFile(list, path);
+		
+		String expected = AtomfeedUtils.readResourceFile(sampleFeedConfigurationPath);
+		String result = AtomfeedUtils.readResourceFile(path);
+		
+		Assert.assertEquals(expected, result);
+	}
+	
+	@Test
+	public void resourceFileExists_exist() throws AtomfeedException {
+		Assert.assertTrue(AtomfeedUtils.resourceFileExists(sampleFeedConfigurationPath));
+	}
+	
+	@Test
+	public void resourceFileExists_notExist() throws AtomfeedException {
+		Assert.assertFalse(AtomfeedUtils.resourceFileExists(notExistingFilePath));
+	}
 }
