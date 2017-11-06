@@ -14,10 +14,13 @@ import java.util.UUID;
 import org.ict4h.atomfeed.server.service.Event;
 import org.joda.time.DateTime;
 import org.openmrs.OpenmrsObject;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.atomfeed.api.db.EventAction;
 import org.openmrs.module.atomfeed.api.exceptions.AtomfeedException;
 import org.openmrs.module.atomfeed.api.model.FeedConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
 
 @Component("atomfeed.DefaultFeedWriter")
 public class DefaultFeedWriter extends FeedWriterBase {

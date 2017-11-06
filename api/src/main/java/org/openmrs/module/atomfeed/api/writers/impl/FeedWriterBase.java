@@ -9,6 +9,7 @@
 package org.openmrs.module.atomfeed.api.writers.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.ict4h.atomfeed.server.repository.AllEventRecordsQueue;
@@ -18,6 +19,7 @@ import org.ict4h.atomfeed.server.service.EventService;
 import org.ict4h.atomfeed.server.service.EventServiceImpl;
 import org.ict4h.atomfeed.transaction.AFTransactionWorkWithoutResult;
 
+import org.openmrs.api.context.Context;
 import org.openmrs.module.atomfeed.api.exceptions.AtomfeedException;
 import org.openmrs.module.atomfeed.api.writers.FeedWriter;
 import org.openmrs.module.atomfeed.transaction.support.AtomFeedSpringTransactionManager;
@@ -48,6 +50,10 @@ public abstract class FeedWriterBase implements FeedWriter, ApplicationListener<
 	}
 	
 	protected void saveEvent(Event event) {
+		atomFeedSpringTransactionManager = new AtomFeedSpringTransactionManager(getSpringPlatformTransactionManager());
+		AllEventRecordsQueue allEventRecordsQueue = new AllEventRecordsQueueJdbcImpl(atomFeedSpringTransactionManager);
+		this.eventService = new EventServiceImpl(allEventRecordsQueue);
+		
 		atomFeedSpringTransactionManager.executeWithTransaction(
 			new AFTransactionWorkWithoutResult() {
 				@Override
@@ -75,5 +81,10 @@ public abstract class FeedWriterBase implements FeedWriter, ApplicationListener<
 		} else {
 			LOGGER.info("Created AtomFeed event with {} UUID", event.getUuid());
 		}
+	}
+	
+	private PlatformTransactionManager getSpringPlatformTransactionManager() {
+		List<PlatformTransactionManager> platformTransactionManagers = Context.getRegisteredComponents(PlatformTransactionManager.class);
+		return platformTransactionManagers.get(0);
 	}
 }
